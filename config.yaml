@@ -1,0 +1,11 @@
+seed: 42
+n_samples: 10000
+cat_features:
+  - risk_profile
+  - marketing_channel
+  - membership_tier
+
+model_dir: "models"
+model_name: "model.cbm"
+
+data_dir: "data"

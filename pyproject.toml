@@ -1,0 +1,67 @@
+# pyproject.toml
+# Конфигурация для ML-проекта с pip-tools, Ruff и будущими тестами
+
+# ───────────────────────────────
+# Ruff: линтер и форматтер
+# ───────────────────────────────
+[tool.ruff]
+# Максимальная длина строки — строго по PEP 8
+line-length = 79
+
+# Исключаем файлы и директории, которые не являются исходным кодом
+exclude = [
+    ".git",
+    "__pycache__",
+    "*.pyc",
+    "*.ipynb",        # Явно исключаем ноутбуки
+    "data/",          # Сырые и обработанные данные
+    "models/",        # Сохранённые модели (pkl, joblib и т.д.)
+    "notebooks/",     # Jupyter-ноутбуки
+    "app/",           # Если там только FastAPI/Flask без бизнес-логики
+    "venv/", ".venv/", "env/"
+]
+
+[tool.ruff.lint]
+# Включаем ключевые правила:
+# E, W — ошибки и предупреждения PEP 8
+# F — синтаксические ошибки (flake8)
+# I — сортировка импортов (isort)
+# B — потенциальные баги (bugbear)
+# C4 — упрощение кода (comprehensions)
+select = ["E", "W", "F", "I", "B", "C4"]
+ignore = []  
+
+# Настройки isort (встроен в Ruff)
+[tool.ruff.lint.isort]
+# Порядок импортов: stdlib → third-party → first-party
+known-first-party = ["src"]  
+combine-as-imports = true    # from x import a, b вместо двух строк
+force-sort-within-sections = true
+
+# ───────────────────────────────
+# Ruff Formatter
+# ───────────────────────────────
+[tool.ruff.format]
+# Использует line-length = 79 из [tool.ruff]
+docstring-code-format = false  # Пока не пишу докстринги — можно false
+quote-style = "double"         # "..." вместо '...'
+indent-style = "space"         # Отступы пробелами (PEP 8)
+skip-magic-trailing-comma = false  # Добавлять запятую в конце списков
+
+# ───────────────────────────────
+# pytest (для будущего использования)
+# ───────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]          # Директория с тестами (создам позже)
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--strict-markers -v --tb=short"
+
+# ───────────────────────────────
+# Build system (совместимость с pip-tools)
+# ───────────────────────────────
+# pip-tools не требует этого, но некоторые IDE (PyCharm) любят видеть
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

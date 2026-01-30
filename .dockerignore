@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py~
+
+# Виртуальные окружения
+venv/
+env/
+.venv/
+
+# IDE / редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Конфигурация и секреты
+.env
+.env.local
+.env.*.local
+
+# Логи и временные файлы
+*.log
+*.tmp
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Данные (сырые и обработанные)
+data/
+
+# Прочее
+TODO.md
+.git
+.gitignore
+Dockerfile
+.dockerignore
+README.md
+LICENSE

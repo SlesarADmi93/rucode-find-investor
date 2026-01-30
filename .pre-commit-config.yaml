@@ -1,0 +1,16 @@
+# .pre-commit-config.yaml
+# Автоматическая проверка и форматирование Python-кода перед коммитом
+# Для ML-проекта: исключает .ipynb, длина строки = 79
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.7  # Версия Ruff (соответствует документации)
+    hooks:
+      # 1. Линтер: находит и исправляет ошибки (импорты, стиль, баги)
+      - id: ruff-check
+        args: ["--fix"]                 # Автоматически чинит, что можно
+        types_or: [python, pyi]         # Только .py и .pyi файлы (НЕ .ipynb)
+
+      # 2. Форматтер: приводит код к единому стилю (как Black, но быстрее)
+      - id: ruff-format
+        types_or: [python, pyi]         # Только Python-файлы

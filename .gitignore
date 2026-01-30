@@ -1,0 +1,28 @@
+# Кэш и байт-код Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE / редакторы
+.vscode/
+
+# Кэш и байт-код Python
+.env
+venv/
+env/
+
+# Логи и временные файлы
+*.log
+*.tmp
+
+# Секреты и личные заметки
+TODO.md
+
+# сырые данные
+data/raw/
+
+# временные файлы Jupyter
+.ipynb_checkpoints/
+
+catboost_info/

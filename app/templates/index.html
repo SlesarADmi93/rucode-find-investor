@@ -1,0 +1,92 @@
+<!-- app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>🏦 Предсказание оттока клиента</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 20px; }
+        .form-group { margin: 12px 0; }
+        label { display: inline-block; width: 200px; font-weight: bold; }
+        input, select { padding: 6px; width: 200px; }
+        button { padding: 8px 20px; background: #1976d2; color: white; border: none; cursor: pointer; margin-top: 10px; }
+        #result { margin-top: 20px; padding: 12px; border-radius: 6px; font-weight: bold; }
+        .churn { background: #ffebee; color: #c62828; }
+        .stay { background: #e8f5e9; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <h2>🏦 Предсказание оттока клиента</h2>
+    <form id="predictionForm">
+        <div class="form-group">
+            <label for="age">Возраст:</label>
+            <input type="number" id="age" name="age" min="18" max="100" value="35" required>
+        </div>
+        <div class="form-group">
+            <label for="balance">Баланс ($):</label>
+            <input type="number" id="balance" name="balance" step="0.01" value="25000" required>
+        </div>
+        <div class="form-group">
+            <label for="risk_profile">Уровень риска:</label>
+            <select id="risk_profile" name="risk_profile" required>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="marketing_channel">Канал маркетинга:</label>
+            <select id="marketing_channel" name="marketing_channel" required>
+                <option value="Email">Email</option>
+                <option value="Social">Social Media</option>
+                <option value="Referral">Referral</option>
+                <option value="Banner">Banner Ads</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="offer_amount">Сумма предложения ($):</label>
+            <input type="number" id="offer_amount" name="offer_amount" step="0.01" value="500" required>
+        </div>
+        <div class="form-group">
+            <label for="previous_investments">Предыдущие инвестиции:</label>
+            <input type="number" id="previous_investments" name="previous_investments" min="0" value="2" required>
+        </div>
+        <div class="form-group">
+            <label for="responded_before">Реагировал ранее:</label>
+            <input type="checkbox" id="responded_before" name="responded_before" value="true">
+        </div>
+        <div class="form-group">
+            <label for="membership_tier">Уровень участия:</label>
+            <select id="membership_tier" name="membership_tier" required>
+                <option value="Basic">Basic</option>
+                <option value="Gold">Gold</option>
+                <option value="Platinum">Platinum</option>
+            </select>
+        </div>
+        <button type="submit">Предсказать</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+
+            const resDiv = document.getElementById('result');
+            if (result.churn) {
+                resDiv.className = 'churn';
+                resDiv.innerHTML = `⚠️ Клиент уйдёт! Вероятность: ${(result.probability * 100).toFixed(2)}%`;
+            } else {
+                resDiv.className = 'stay';
+                resDiv.innerHTML = `✅ Клиент останется. Риск ухода: ${(result.probability * 100).toFixed(2)}%`;
+            }
+        });
+    </script>
+</body>
+</html>

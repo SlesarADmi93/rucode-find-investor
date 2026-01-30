@@ -1,0 +1,23 @@
+# ML core
+numpy
+pandas
+scikit-learn
+catboost
+scipy
+ipykernel
+
+# Visualization
+matplotlib
+
+# Model persistence
+joblib
+
+# API
+fastapi
+uvicorn
+jinja2
+python-multipart
+
+# Утилиты
+python-dotenv
+PyYAML
