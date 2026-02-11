@@ -1,90 +1,324 @@
-<!-- app/templates/index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>🏦 Предсказание оттока клиента</title>
+    <title>🏦 Предсказание оттока клиента | Демо</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 20px; }
-        .form-group { margin: 12px 0; }
-        label { display: inline-block; width: 200px; font-weight: bold; }
-        input, select { padding: 6px; width: 200px; }
-        button { padding: 8px 20px; background: #1976d2; color: white; border: none; cursor: pointer; margin-top: 10px; }
-        #result { margin-top: 20px; padding: 12px; border-radius: 6px; font-weight: bold; }
-        .churn { background: #ffebee; color: #c62828; }
-        .stay { background: #e8f5e9; color: #2e7d32; }
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 650px; 
+            margin: 30px auto; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 { 
+            color: #1976d2; 
+            margin-bottom: 10px; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .badge-demo {
+            background: #ffc107;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .form-group { 
+            margin: 15px 0; 
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        label { 
+            display: inline-block; 
+            width: 220px; 
+            font-weight: bold; 
+            color: #333;
+        }
+        
+        input, select { 
+            padding: 8px 12px; 
+            width: 220px; 
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1976d2;
+        }
+        
+        .demo-select {
+            background: #e3f2fd;
+            border-color: #90caf9;
+        }
+        
+        button { 
+            padding: 10px 24px; 
+            background: #1976d2; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            margin-top: 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #0d47a1;
+        }
+        
+        button:disabled {
+            background: #bdbdbd;
+            cursor: not-allowed;
+        }
+        
+        #result { 
+            margin-top: 25px; 
+            padding: 15px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .churn { 
+            background: #ffebee; 
+            color: #c62828; 
+            border: 2px solid #ef9a9a;
+        }
+        
+        .stay { 
+            background: #e8f5e9; 
+            color: #2e7d32; 
+            border: 2px solid #a5d6a7;
+        }
+        
+        /* Дисклеймер */
+        .disclaimer-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .disclaimer-box strong {
+            color: #0d47a1;
+        }
+        
+        .disclaimer-box ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+        }
+        
+        .disclaimer-box li {
+            margin-bottom: 5px;
+        }
+        
+        .demo-note {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            margin-left: 10px;
+        }
+        
+        .warning-icon {
+            color: #ff9800;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        /* Footer */
+        .footer-note {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h2>🏦 Предсказание оттока клиента</h2>
-    <form id="predictionForm">
-        <div class="form-group">
-            <label for="age">Возраст:</label>
-            <input type="number" id="age" name="age" min="18" max="100" value="35" required>
+    <div class="container">
+        <h2>🏦 Предсказание оттока клиента <span class="badge-demo">ДЕМО</span></h2>
+        
+        <!-- 🔒 ДИСКЛЕЙМЕР -->
+        <div class="disclaimer-box">
+            <strong>🎓 Учебный проект с моделью CatBoost</strong><br><br>
+            <ul>
+                <li>Все данные — <strong>предзаполненные демо-значения</strong></li>
+                <li>Реальные персональные данные <strong>не собираются и не обрабатываются</strong></li>
+                <li>Модель работает на сервере, но <strong>данные не сохраняются</strong> в базу</li>
+                <li>Результат показан только для демонстрации работы ML-алгоритма</li>
+            </ul>
+            <br>
+            <span class="warning-icon">⚠️</span>
+            <strong>Рекомендуется использовать только предложенные демо-значения</strong>
         </div>
-        <div class="form-group">
-            <label for="balance">Баланс ($):</label>
-            <input type="number" id="balance" name="balance" step="0.01" value="25000" required>
-        </div>
-        <div class="form-group">
-            <label for="risk_profile">Уровень риска:</label>
-            <select id="risk_profile" name="risk_profile" required>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="marketing_channel">Канал маркетинга:</label>
-            <select id="marketing_channel" name="marketing_channel" required>
-                <option value="Email">Email</option>
-                <option value="Social">Social Media</option>
-                <option value="Referral">Referral</option>
-                <option value="Banner">Banner Ads</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="offer_amount">Сумма предложения ($):</label>
-            <input type="number" id="offer_amount" name="offer_amount" step="0.01" value="500" required>
-        </div>
-        <div class="form-group">
-            <label for="previous_investments">Предыдущие инвестиции:</label>
-            <input type="number" id="previous_investments" name="previous_investments" min="0" value="2" required>
-        </div>
-        <div class="form-group">
-            <label for="responded_before">Реагировал ранее:</label>
-            <input type="checkbox" id="responded_before" name="responded_before" value="true">
-        </div>
-        <div class="form-group">
-            <label for="membership_tier">Уровень участия:</label>
-            <select id="membership_tier" name="membership_tier" required>
-                <option value="Basic">Basic</option>
-                <option value="Gold">Gold</option>
-                <option value="Platinum">Platinum</option>
-            </select>
-        </div>
-        <button type="submit">Предсказать</button>
-    </form>
+        
+        <form id="predictionForm">
+            <div class="form-group">
+                <label for="age">Возраст:</label>
+                <select id="age" name="age" class="demo-select" required>
+                    <option value="25">25 лет</option>
+                    <option value="30">30 лет</option>
+                    <option value="35" selected>35 лет (по умолчанию)</option>
+                    <option value="40">40 лет</option>
+                    <option value="45">45 лет</option>
+                    <option value="50">50 лет</option>
+                </select>
+                <span class="demo-note">демо-значения</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="balance">Баланс ($):</label>
+                <select id="balance" name="balance" class="demo-select" required>
+                    <option value="10000">$10,000</option>
+                    <option value="25000" selected>$25,000 (по умолчанию)</option>
+                    <option value="50000">$50,000</option>
+                    <option value="75000">$75,000</option>
+                    <option value="100000">$100,000</option>
+                </select>
+                <span class="demo-note">демо-значения</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="risk_profile">Уровень риска:</label>
+                <select id="risk_profile" name="risk_profile" class="demo-select" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium (по умолчанию)</option>
+                    <option value="High">High</option>
+                </select>
+                <span class="demo-note">демо-категории</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="marketing_channel">Канал маркетинга:</label>
+                <select id="marketing_channel" name="marketing_channel" class="demo-select" required>
+                    <option value="Email">Email</option>
+                    <option value="Social" selected>Social Media (по умолчанию)</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Banner">Banner Ads</option>
+                </select>
+                <span class="demo-note">демо-каналы</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="offer_amount">Сумма предложения ($):</label>
+                <select id="offer_amount" name="offer_amount" class="demo-select" required>
+                    <option value="100">$100</option>
+                    <option value="500" selected>$500 (по умолчанию)</option>
+                    <option value="1000">$1,000</option>
+                    <option value="2000">$2,000</option>
+                </select>
+                <span class="demo-note">демо-суммы</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="previous_investments">Предыдущие инвестиции:</label>
+                <select id="previous_investments" name="previous_investments" class="demo-select" required>
+                    <option value="0">0 инвестиций</option>
+                    <option value="1">1 инвестиция</option>
+                    <option value="2" selected>2 инвестиции (по умолчанию)</option>
+                    <option value="3">3 инвестиции</option>
+                    <option value="5">5+ инвестиций</option>
+                </select>
+                <span class="demo-note">демо-счётчик</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="responded_before">Реагировал ранее:</label>
+                <input type="checkbox" id="responded_before" name="responded_before" value="true">
+                <span class="demo-note">демо-флаг</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="membership_tier">Уровень участия:</label>
+                <select id="membership_tier" name="membership_tier" class="demo-select" required>
+                    <option value="Basic">Basic</option>
+                    <option value="Gold" selected>Gold (по умолчанию)</option>
+                    <option value="Platinum">Platinum</option>
+                </select>
+                <span class="demo-note">демо-уровни</span>
+            </div>
+            
+            <button type="submit">Предсказать (демо)</button>
+        </form>
 
-    <div id="result"></div>
+        <div id="result"></div>
+        
+        <div class="footer-note">
+            <strong>© 2026 Учебный проект | Все данные — демо | Не является коммерческим продуктом</strong>
+        </div>
+    </div>
 
     <script>
         document.getElementById('predictionForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Собираем данные из формы
             const formData = new FormData(e.target);
-            const response = await fetch('/predict', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-
-            const resDiv = document.getElementById('result');
-            if (result.churn) {
-                resDiv.className = 'churn';
-                resDiv.innerHTML = `⚠️ Клиент уйдёт! Вероятность: ${(result.probability * 100).toFixed(2)}%`;
-            } else {
-                resDiv.className = 'stay';
-                resDiv.innerHTML = `✅ Клиент останется. Риск ухода: ${(result.probability * 100).toFixed(2)}%`;
+            
+            // Добавляем флаг демо-режима для сервера
+            formData.append('demo_mode', 'true');
+            
+            try {
+                // Отправляем на сервер
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                // Отображаем результат
+                const resDiv = document.getElementById('result');
+                
+                if (result.churn) {
+                    resDiv.className = 'churn';
+                    resDiv.innerHTML = `
+                        ⚠️ <strong>Клиент уйдёт!</strong><br>
+                        Вероятность: ${(result.probability * 100).toFixed(2)}%
+                    `;
+                } else {
+                    resDiv.className = 'stay';
+                    resDiv.innerHTML = `
+                        ✅ <strong>Клиент останется</strong><br>
+                        Риск ухода: ${(result.probability * 100).toFixed(2)}%
+                    `;
+                }
+                
+                // Логируем в консоль
+                console.log('[ДЕМО] Предсказание выполнено. Данные не сохранены.');
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при выполнении предсказания. Проверьте сервер.');
             }
         });
     </script>
